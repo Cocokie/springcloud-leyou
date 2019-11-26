@@ -1,0 +1,36 @@
+server:
+  port: 10302
+eureka:
+  instance:
+    hostname: zuul10302 #eureka服务端的实例名称
+    instance-id: ZuulServer10302
+  client:
+    service-url:
+      defaultZone: http://localhost:10000/eureka/    #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址。
+spring:
+  application:
+    name: ZuulServer10302_App
+zuul:
+  prefix: /api # 添加路由前缀
+  retryable: true
+  routes:
+    # 微服务名: 要映射到到地址
+    item-service: /item/** # 将商品微服务映射到/item/**
+    search-service: /search/** # 将查询微服务映射到/search/**
+    upload-service:
+      path: /upload/** # 将上传微服务映射到/upload/**
+      serviceId: upload-service
+      strip-prefix : false
+ribbon:
+  ConnectTimeout: 250 # 连接超时时间(ms)
+  ReadTimeout: 2000 # 通信超时时间(ms)
+  OkToRetryOnAllOperations: true # 是否对所有操作重试
+  MaxAutoRetriesNextServer: 1 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 1 # 同一实例的重试次数
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 10000 # 熔断超时时长：10000ms

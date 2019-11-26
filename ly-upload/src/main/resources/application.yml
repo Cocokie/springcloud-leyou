@@ -1,0 +1,18 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: upload-service
+  servlet:
+    multipart:
+      max-file-size: 5MB
+eureka:
+  instance:
+    instance-id: upload-service-8088
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:10000/eureka/
+logging:
+  level:
+    com.lix: debug

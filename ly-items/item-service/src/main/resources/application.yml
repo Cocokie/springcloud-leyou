@@ -1,0 +1,25 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: item-service
+  datasource:
+    url: jdbc:mysql://47.102.153.125:3306/leyou?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+    username: lixin
+    password: lixin
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+    validation-query: SELECT 1
+    time-between-eviction-runs-millis: 18800
+eureka:
+  instance:
+    instance-id: item-service-8081
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:10000/eureka/
+logging:
+  level:
+    com.lix: debug
